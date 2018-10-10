@@ -6,7 +6,7 @@ answering questions later._
 
 ## Host Details
 **Type** - Pubicly-facing  
-**OS** - Windows Server 2003  
+**OS** - Centos 7
 **Services**
 - A
 - B

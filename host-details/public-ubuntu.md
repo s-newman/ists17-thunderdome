@@ -6,7 +6,7 @@ answering questions later._
 
 ## Host Details
 **Type** - Pubicly-facing  
-**OS** - Windows Server 2003  
+**OS** - Ubuntu 16.04
 **Services**
 - A
 - B

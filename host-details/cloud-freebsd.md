@@ -5,8 +5,8 @@ boxes!  Also, the more we document here now, the less time we'll need to spend
 answering questions later._
 
 ## Host Details
-**Type** - Pubicly-facing  
-**OS** - Windows Server 2003  
+**Type** - Cloud
+**OS** - FreeBSD 11.2
 **Services**
 - A
 - B
