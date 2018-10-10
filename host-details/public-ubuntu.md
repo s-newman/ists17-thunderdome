@@ -8,17 +8,18 @@ answering questions later._
 **Type** - Pubicly-facing  
 **OS** - Ubuntu 16.04
 **Services**
-- A
-- B
-- C
+- Apache with Shell in a Box
+- PHP
 
 ## Vulnerabilities
 _Feel free to add/remove entries as needed._
 
-### Vuln A
+### Apache Uses HTTP, not HTTPS
 #### Details
-_What is the vulnerability?  Does it have a CVE or other related vulnerability
-number?   Has it been patched?  What software versions does it apply to?_
+Shell in a Box transmits all of your shell data through HTTP/HTTPS. This
+includes login credetials. The Shell in a Box documentation specifically says
+that it should only ever be run using HTTP; however, this server is set up to
+serve Shell in a Box over HTTP only.
 
 #### Exploitation
 _Walk through how to exploit this vulnerability._
@@ -27,10 +28,12 @@ _Walk through how to exploit this vulnerability._
 _Once this vulnerability has been exploited, what can you do with it?  What
 access do you have to the host?_
 
-### Vuln B
+### Weak credentials
 #### Details
-_What is the vulnerability?  Does it have a CVE or other related vulnerability
-number?   Has it been patched?  What software versions does it apply to?_
+There are two users that have public_html directories: james and david. James's
+page makes it clear that he is a huge star wars fan, and his password is
+`starwars`. David's page makes it clear that he has a cat named midnight, and
+his password is `midnight`.
 
 #### Exploitation
 _Walk through how to exploit this vulnerability._
@@ -38,3 +41,18 @@ _Walk through how to exploit this vulnerability._
 #### Post-Exploitation
 _Once this vulnerability has been exploited, what can you do with it?  What
 access do you have to the host?_
+
+### Command Injection via Kittysay
+#### Details
+David has a Kittysay generator on his homepage. This generator page is a PHP
+script that calls `cowsay -f kitty`.
+
+#### Exploitation
+When the PHP script calls `cowsay`, it does not sanitize the arguments that are
+passed to it. Thus command injection is possible by passing it input like
+`Hello; cat /etc/passwd`.
+
+#### Post-Exploitation
+This vulnerablilitiy allows for arbitrary remote code execution in the context
+of the php user.
+
