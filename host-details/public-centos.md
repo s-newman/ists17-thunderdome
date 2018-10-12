@@ -24,7 +24,8 @@ name (including root) in for `<user>` and the target machine's IP address in
 for `<IP>`.
 
 #### Post-Exploitation
-This vulnerability allows for anyone to log in as any user on the system.
+This vulnerability allows for anyone to log in as any user on the system and
+obtain a shell.
 
 ### Vuln B
 #### Details
