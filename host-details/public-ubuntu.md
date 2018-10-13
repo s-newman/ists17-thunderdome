@@ -10,6 +10,7 @@ answering questions later._
 **Services**
 - Apache with Shell in a Box
 - PHP
+- Telnet
 
 ## Vulnerabilities
 _Feel free to add/remove entries as needed._
