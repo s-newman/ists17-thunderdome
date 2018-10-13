@@ -6,11 +6,13 @@ answering questions later._
 
 ## Host Details
 **Type** - Cloud
-**OS** - FreeBSD 11.2
+**OS** - OpenBSD 6.4
 **Services**
-- A
-- B
-- C
+- OpenSMTPD
+- Dovecot
+- SSH
+
+**Everything Else is TBD**
 
 ## Vulnerabilities
 _Feel free to add/remove entries as needed._
