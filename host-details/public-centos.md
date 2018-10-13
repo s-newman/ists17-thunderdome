@@ -9,6 +9,8 @@ answering questions later._
 **OS** - Centos 7
 **Services**
 - rlogin
+- rsync
+- mongodb
 
 ## Vulnerabilities
 _Feel free to add/remove entries as needed._
@@ -27,10 +29,9 @@ for `<IP>`.
 This vulnerability allows for anyone to log in as any user on the system and
 obtain a shell.
 
-### Vuln B
+### Rsync Allows Uploads to the Token File
 #### Details
-_What is the vulnerability?  Does it have a CVE or other related vulnerability
-number?   Has it been patched?  What software versions does it apply to?_
+Rsync allows remote users write to the token file.
 
 #### Exploitation
 _Walk through how to exploit this vulnerability._
@@ -38,3 +39,19 @@ _Walk through how to exploit this vulnerability._
 #### Post-Exploitation
 _Once this vulnerability has been exploited, what can you do with it?  What
 access do you have to the host?_
+
+#### Post-Exploitation
+This vulnerability allows for anyone to log in as any user on the system and
+obtain a shell.
+
+### MongoDB Allows Login without Credentials
+#### Details
+MongoDB allows for a remote user to log in without credentials.
+
+#### Exploitation
+_Walk through how to exploit this vulnerability._
+
+#### Post-Exploitation
+_Once this vulnerability has been exploited, what can you do with it?  What
+access do you have to the host?_
+
