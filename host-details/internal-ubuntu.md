@@ -51,3 +51,15 @@ _Walk through how to exploit this vulnerability._
 _Once this vulnerability has been exploited, what can you do with it?  What
 access do you have to the host?_
 
+### ShellShock
+#### Details
+_What is the vulnerability?  Does it have a CVE or other related vulnerability
+number?   Has it been patched?  What software versions does it apply to?_
+
+#### Exploitation
+_Walk through how to exploit this vulnerability._
+
+#### Post-Exploitation
+_Once this vulnerability has been exploited, what can you do with it?  What
+access do you have to the host?_
+
