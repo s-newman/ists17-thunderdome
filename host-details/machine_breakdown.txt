@@ -1,0 +1,17 @@
+CENTOS MACHINES:
+    - Weak SSH creds
+        : priv esc
+            - visudo --> edit file --> gain root
+            
+    - VSFTPD smiley face backdoor (get this from charles)
+    - Webserver with shellshock vuln
+    - Webserver hosting users account pages making password guessing ez
+
+UBUNTU MACHINES:
+    - Apache server with SQL injectable PHP script (use SYSTEM to run bash commands)
+    - Telnet server (Weak creds)
+    - MongoDB server allowing all logins (find login info for an account)
+    - FTP allowing arbitrary file upload (including to /etc/)
+
+OTHER:
+    - Create C program that will allow user to read the /etc/sudoers file
