@@ -1,11 +1,11 @@
 CENTOS MACHINES:
-    - Weak SSH creds
+    X - Weak SSH creds
         : priv esc
             - visudo --> edit file --> gain root
             
     - VSFTPD smiley face backdoor (get this from charles)
     - Webserver (Apache) with shellshock vuln
-    - Webserver (nginx) hosting users account pages making password guessing ez
+    X - Webserver (nginx) hosting users account pages making password guessing ez
 
 UBUNTU MACHINES:
     - Apache server with SQL injectable PHP script (use SYSTEM to run bash commands)

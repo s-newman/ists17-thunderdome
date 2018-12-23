@@ -1,0 +1,12 @@
+---
+
+  - remote_user: root
+    tasks:
+
+      # Install MongoDB... Will need more here
+      - name: Install mongodb
+        package:
+          name: mongodb
+          state: present
+
+      # Figure out how to add an entry to mongodb with ansible
