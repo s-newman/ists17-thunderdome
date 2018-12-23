@@ -4,7 +4,7 @@ CENTOS MACHINES:
             - visudo --> edit file --> gain root
             
     - VSFTPD smiley face backdoor (get this from charles)
-    - Webserver with shellshock vuln
+    - Webserver (Apache) with shellshock vuln
     - Webserver (nginx) hosting users account pages making password guessing ez
 
 UBUNTU MACHINES:

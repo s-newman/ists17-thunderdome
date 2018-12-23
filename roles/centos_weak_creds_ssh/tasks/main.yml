@@ -1,0 +1,12 @@
+---
+  - remote_user: root
+    tasks:
+
+    - name: Adding ritsec user for ssh brute force
+      user:
+        name: ritsec
+        shell: /bin/bash
+        uid: 1024
+        password: hunter2
+        group: admin
+
