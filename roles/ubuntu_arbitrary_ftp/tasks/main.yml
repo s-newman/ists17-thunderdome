@@ -1,0 +1,19 @@
+---
+  - remote_user: root
+    tasks:
+
+      - name: Install ftp
+        package:
+          name: vsftp
+          state: present
+
+      - name: Copy over the vsftp config 
+        copy:
+          src: vsftp.conf
+          dest: /some/place/in/etc/
+
+      - name: Reload and enable vsftp
+        service:
+          name: vsftp
+          state: reloaded 
+          enabled: yes
