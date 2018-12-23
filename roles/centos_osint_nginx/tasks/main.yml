@@ -1,0 +1,66 @@
+---
+
+- remote_user: root
+  tasks:
+
+    # Added users
+    - name: Add Kyle as a user and add to the wheel group
+      user:
+        name: kyle
+        password: SET MY PASSWORD
+        shell: /bin/bash
+        groups: wheel
+        uid: 1337
+
+    - name: Add Harold as a user and add to the wheel group
+      user:
+        name: harold
+        password: SET MY PASSWORD
+        shell: /bin/bash
+        groups: wheel
+        uid: 7331
+      
+    # Check/Install packages
+    
+    - name: Install nginx
+      package:
+        name: nginx
+        state: present
+
+    # Copy Files
+
+    - name: Copy index.html page to /data/www/
+      copy:
+        src: index.html
+        dest: /data/www/index.html
+        owner: nginx
+        group: nginx
+
+    - name: Copy harold.html page to /data/www
+      copy:
+        src: harold.html
+        dest: /data/www/harold.html
+        owner: nginx
+        group: nginx
+
+    - name: Copy kyle.html page to /data/www
+      copy:
+        src: kyle.html
+        dest: /data/www/kyle.html
+        owner: nginx
+        group: nginx
+
+    - name: Copy nginx config to /etc/nginx/
+      copy:
+        src: nginx_conf.conf
+        dest: /etc/nginx
+        owner: nginx
+        group: nginx
+
+    # Restart services
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+

@@ -5,7 +5,7 @@ CENTOS MACHINES:
             
     - VSFTPD smiley face backdoor (get this from charles)
     - Webserver with shellshock vuln
-    - Webserver hosting users account pages making password guessing ez
+    - Webserver (nginx) hosting users account pages making password guessing ez
 
 UBUNTU MACHINES:
     - Apache server with SQL injectable PHP script (use SYSTEM to run bash commands)
