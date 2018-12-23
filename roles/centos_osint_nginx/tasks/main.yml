@@ -32,28 +32,28 @@
     - name: Copy index.html page to /data/www/
       copy:
         src: index.html
-        dest: /data/www/index.html
+        dest: /var/www/html/index.html
         owner: nginx
         group: nginx
 
     - name: Copy harold.html page to /data/www
       copy:
         src: harold.html
-        dest: /data/www/harold.html
+        dest: /var/www/html/harold.html
         owner: nginx
         group: nginx
 
     - name: Copy kyle.html page to /data/www
       copy:
         src: kyle.html
-        dest: /data/www/kyle.html
+        dest: /var/www/html/kyle.html
         owner: nginx
         group: nginx
 
     - name: Copy nginx config to /etc/nginx/
       copy:
         src: nginx_conf.conf
-        dest: /etc/nginx/sites-enabled/fun_sites.conf
+        dest: /etc/nginx/sites-enabled/default
         owner: nginx
         group: nginx
 
