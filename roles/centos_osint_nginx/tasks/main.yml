@@ -53,7 +53,7 @@
     - name: Copy nginx config to /etc/nginx/
       copy:
         src: nginx_conf.conf
-        dest: /etc/nginx
+        dest: /etc/nginx/sites-enabled/fun_sites.conf
         owner: nginx
         group: nginx
 
