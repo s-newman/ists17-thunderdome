@@ -15,5 +15,5 @@
       - name: Reload and enable vsftp
         service:
           name: vsftp
-          state: reloaded 
+          state: started
           enabled: yes
