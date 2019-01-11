@@ -1,7 +1,12 @@
 ---
 
-- hosts: osint
+# - hosts: osint
+#   become: true
+#   roles: 
+#     - centos_osint_nginx
+
+- hosts: brute_ssh
   become: true
-  roles: 
-    - centos_osint_nginx
+  roles:
+    - centos_weak_creds_ssh
 

@@ -1,10 +1,13 @@
 ---
 
+    # Use this to hash and salt the passwords:
+    # python -c 'import crypt; print crypt.crypt("This is my Password", "$6$")'
+
     # Added users
     - name: Add Kyle as a user and add to the wheel group
       user:
         name: kyle
-        password: SET MY PASSWORD
+        password: SET PASSWORD HERE 
         shell: /bin/bash
         groups: wheel
         uid: 1337
