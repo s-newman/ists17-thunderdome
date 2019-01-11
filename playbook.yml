@@ -1,0 +1,7 @@
+---
+
+- hosts: osint
+  become: true
+  roles: 
+    - centos_osint_nginx
+
