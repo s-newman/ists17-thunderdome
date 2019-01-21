@@ -10,8 +10,12 @@
 #   roles:
 #     - centos_weak_creds_ssh
 
-- hosts: shellshock
+# - hosts: shellshock
+#   become: true
+#   roles:
+#     - centos_shellshock_apache
+
+- hosts: smiley
   become: true
   roles:
-    - centos_shellshock_apache
-
+    - centos_smiley_vsftpd
