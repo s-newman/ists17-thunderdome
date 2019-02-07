@@ -15,7 +15,24 @@
 #   roles:
 #     - centos_shellshock_apache
 
-- hosts: smiley
+# - hosts: smiley
+#   become: true
+#   roles:
+#     - centos_smiley_vsftpd
+
+# - hosts: mongo
+#   become: true
+#   roles: 
+#     - ubuntu_allow_all_mongodb
+
+- hosts: arbitrary_ftp
   become: true
   roles:
-    - centos_smiley_vsftpd
+    - ubuntu_arbitrary_ftp
+
+# - hosts: weak_telnet
+#   become: true
+#   roles:
+#     - ubuntu_weak_creds_telnet
+
+

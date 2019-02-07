@@ -1,12 +1,44 @@
 ---
 
-  - remote_user: root
-    tasks:
+    # This script will need to be run twice most times
+    # The running of the .js script likes to fail the first time3
 
-      # Install MongoDB... Will need more here
-      - name: Install mongodb
-        package:
-          name: mongodb
-          state: present
+  - name: Turn the firewall off
+    service:
+      name: ufw
+      state: stopped
 
-      # Figure out how to add an entry to mongodb with ansible
+  - name: Add keys and repo for Mongodb
+    shell:
+      sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4;
+      echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list;
+      sudo apt-get update;
+
+
+  - name: Install mongodb
+    package:
+      name: mongodb-org
+      state: present      
+
+  - name: Copy mongodb config file
+    copy:
+      src: mongod.conf
+      dest: /etc/mongod.conf
+
+  - name: Copy DB setup script
+    copy:
+      src: db_setup.js
+      dest: /tmp/db_setup.js
+
+  - name: Start mongodb
+    service:
+      name: mongod.service
+      state: started
+
+  - name: Running DB setup script
+    shell: mongo < /tmp/db_setup.js;
+
+  - name: Delete DB setup script
+    file:
+      name: /tmp/db_setup.js
+      state: absent
