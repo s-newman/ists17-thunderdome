@@ -23,6 +23,6 @@
 - hosts: wordpress
   become: true
   roles:
-    #- ubuntu_wordpress
+    - ubuntu_wordpress
     - ubuntu_trigger_CVE-2017-1000382
 
