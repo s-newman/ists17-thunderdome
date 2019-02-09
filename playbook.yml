@@ -19,3 +19,10 @@
   become: true
   roles:
     - centos_smiley_vsftpd
+
+- hosts: wordpress
+  become: true
+  roles:
+    #- ubuntu_wordpress
+    - ubuntu_trigger_CVE-2017-1000382
+
