@@ -19,7 +19,7 @@ INSERT INTO spaceships (name, kills, captain) VALUES
 ('SS Roosevelt', 19,'Adnan Lam'),
 ('HWSS Defiance', 15,'Kyron Amos'),
 ('Oof ouch owie', 0,'lol it isnt that easy'),
-('LbtebKe6yrU8vEnx', 9001,'I wonder how powerful sql is'),
+('Win it for the team', 1337,'HASH_HERE'),
 ('LWSS Valhalla', 26,'Derek Drummond');
 
 CREATE USER 'webserver'@'%' IDENTIFIED BY 'PP6L43BZpGUi9zC5oaRTbKQT4XBm';
