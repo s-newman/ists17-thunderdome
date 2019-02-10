@@ -15,3 +15,6 @@
          name: vsftpd
          state: started
          enabled: yes
+
+      - name: Create ssh keys for root user
+        shell: ssh-keygen -t rsa -f /home/keys -N ""
