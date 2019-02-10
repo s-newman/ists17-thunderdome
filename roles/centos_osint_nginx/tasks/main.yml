@@ -7,7 +7,8 @@
     - name: Add Kyle as a user and add to the wheel group
       user:
         name: kyle
-        password: SET PASSWORD HERE 
+        # Password = lakers
+        password: $6$$hLDkLFrCWF1hDc47.1.Ur5v4PWw0ALht.zMYghMM5qh1hJOehb6DbuDwCmOVkqY2DRMnw1Hi/GfJfzz/3RA2l1
         shell: /bin/bash
         groups: wheel
         uid: 1337
@@ -15,7 +16,8 @@
     - name: Add Harold as a user and add to the wheel group
       user:
         name: harold
-        password: SET MY PASSWORD
+        # Password = Mariah
+        password: $6$$dpFcr4UHaPpASxuPPZej1.hXrbkaJOOIFdhyOcqXTdHMqCdnG49cha3lB69CkGceXPtjZz.hwnxJ.9YhE/dx4.
         shell: /bin/bash
         groups: wheel
         uid: 7331
