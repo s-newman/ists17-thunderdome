@@ -2,7 +2,7 @@
 
   - name: Install Telnet
     package:
-      name: telnet
+      name: telnetd
       state: present
 
   - name: Add user for weak telnet creds
