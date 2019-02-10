@@ -23,6 +23,6 @@ INSERT INTO spaceships (name, kills, captain) VALUES
 ('LWSS Valhalla', 26,'Derek Drummond');
 
 CREATE USER 'webserver'@'%' IDENTIFIED BY 'PP6L43BZpGUi9zC5oaRTbKQT4XBm';
-GRANT SELECT ON challenge.* to 'webserver'@'%';
+GRANT ALL ON challenge.* to 'webserver'@'%';
 
 FLUSH PRIVILEGES;
