@@ -1,0 +1,74 @@
+---
+
+    # Use this to hash and salt the passwords:
+    # python -c 'import crypt; print crypt.crypt("This is my Password", "$6$")'
+
+    # Added users
+    - name: Add Kyle as a user and add to the wheel group
+      user:
+        name: kyle
+        password: SET PASSWORD HERE 
+        shell: /bin/bash
+        groups: wheel
+        uid: 1337
+
+    - name: Add Harold as a user and add to the wheel group
+      user:
+        name: harold
+        password: SET MY PASSWORD
+        shell: /bin/bash
+        groups: wheel
+        uid: 7331
+      
+    # Check/Install packages
+    
+    - name: Install nginx
+      package:
+        name: nginx
+        state: present
+
+    # Copy Files
+
+    - name: Copy index.html page to /var/www/
+      copy:
+        src: index.html
+        dest: /var/www/index.html
+        owner: nginx
+        group: nginx
+
+    - name: Copy harold.html page to /var/www
+      copy:
+        src: harold.html
+        dest: /var/www/harold.html
+        owner: nginx
+        group: nginx
+
+    - name: Copy kyle.html page to /var/www
+      copy:
+        src: kyle.html
+        dest: /var/www/kyle.html
+        owner: nginx
+        group: nginx
+
+    - name: Copy nginx config to /etc/nginx/
+      copy:
+        src: nginx_conf.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+
+    - name: Copy nginx server config to /etc/nginx/conf.d
+      copy:
+        src: nginx_server.conf
+        dest: /etc/nginx/conf.d/default
+        owner: nginx
+        group: nginx
+
+    # Restart services
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+

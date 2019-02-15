@@ -1,0 +1,68 @@
+---
+# tasks file for ubuntu_wordpress
+# This task sets up and configures a Wordpress installation on Ubuntu 14.04.5.
+
+- name: Install the packages for Wordpress
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mariadb-server
+    - php5
+    - python-mysqldb
+    - php5-mysql
+    - php5-mysqlnd
+    - php5-mysqlnd-ms
+    - apache2
+
+- name: Copy the maraidb config over
+  copy:
+    src: my.cnf
+    dest: /etc/mysql/my.cnf
+
+- name: Enable the necessary services for Wordpress
+  sysvinit:
+    name: "{{ item }}"
+    state: started
+  loop:
+    - apache2
+    - mysql
+
+- name: Copy the SQL database over
+  copy:
+    src: wordpress.sql
+    dest: /tmp/wordpress.sql
+
+- name: Import the wordpress SQL database
+  mysql_db:
+    name: wordpress
+    state: import
+    login_user: root
+    target: /tmp/wordpress.sql
+
+- name: Add the wordpress SQL user
+  mysql_user:
+    name: 'wordpress'
+    password: 'pb>6q\qL4u/xu,QHH:w,X!|k%Z6X]k'
+    host: localhost
+    state: present
+    priv: 'wordpress.*:ALL PRIVILEGES'
+    host: '%'
+
+- name: Delete the default apache index.html
+  file:
+    path: /var/www/html/index.html
+    state: absent
+
+- name: Delete the database file
+  file:
+    path: /tmp/wordpress.sql
+    state: absent
+
+- name: Copy the wordpress html directory over
+  copy:
+    src: html
+    dest: /var/www
+    owner: root
+    group: root
+
