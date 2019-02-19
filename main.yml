@@ -1,0 +1,4 @@
+- hosts: record
+  roles:
+    - record
+

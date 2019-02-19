@@ -1,0 +1,71 @@
+- name: install IIS
+  win_feature:
+    name: Web-Server
+    state: present
+    include_sub_features: yes
+    include_management_tools: yes
+  register: win_feature
+
+- name: install PHP
+  win_chocolatey:
+    name: php
+    package_params: '"/InstallDir:C:\PHP"'
+    state: present
+
+- name: install MySQL
+  win_chocolatey:
+    name: mysql
+    state: present
+
+- name: Add PHP to Path variable
+  win_path:
+    elements: "C:\PHP"
+
+- name: Run IIS script
+  script: ../files/iis_settings.ps1
+
+- name: Upload site specific config file
+  win_copy:
+    src: ../files/web.config
+    dest: C:\inetpub\wwwroot\web.config
+
+- name: Upload php.ini
+  win_copy:
+    src: ../files/php.ini
+    dest: C:\PHP\php.ini
+
+- name: Upload wordpress.sql
+  win_copy:
+    src: ../files/wordpress.sql
+    dest: C:\wordpress.sql
+
+- name: Create wordpress database
+  win_shell: mysql -u root -e "create database wordpress;"
+
+- name: Create wordpress account
+  win_shell: mysql -u root -e "create user 'wordpress'@'localhost' identified with mysql_native_password by 'wordpress';"
+
+- name: Import wordpress.sql
+  win_shell: mysql -u root wordpress < C:\wordpress.sql
+  args:
+    executable: cmd
+  
+- name: Grant privs to wordpress account
+  win_shell: mysql -u root -e "grant all on wordpress.* to 'wordpress'@'localhost';"
+
+- name: Upload Wordpress
+  win_copy:
+    src: ../files/wordpress.zip
+    dest: C:\inetpub\wwwroot\wordpress.zip
+
+- name: Extract Wordpress from zip
+  win_unzip:
+    src: C:\inetpub\wwwroot\wordpress.zip
+    dest: C:\inetpub\wwwroot
+
+- name: Copy wp-config.php to server
+  win_copy:
+    src: ../files/wp-config.php
+    dest: C:\inetpub\wwwroot\wordpress\wp-config.php
+
+# remember to delete admin/install.php
