@@ -1,3 +1,12 @@
+- name: Change hostname
+  win_hostname:
+    name: record
+  register: namechange
+
+- name: Reboot if necessary
+  win_reboot:
+  when: namechange.reboot_required
+
 - name: install IIS
   win_feature:
     name: Web-Server
@@ -21,8 +30,8 @@
   win_path:
     elements: "C:\PHP"
 
-- name: Run IIS script
-  script: ../files/iis_settings.ps1
+#- name: Run IIS script
+#  script: ../files/iis_settings.ps1
 
 - name: Upload site specific config file
   win_copy:
@@ -39,16 +48,16 @@
     src: ../files/wordpress.sql
     dest: C:\wordpress.sql
 
-- name: Create wordpress database
-  win_shell: mysql -u root -e "create database wordpress;"
+#- name: Create wordpress database
+#  win_shell: mysql -u root -e "create database wordpress;"
 
-- name: Create wordpress account
-  win_shell: mysql -u root -e "create user 'wordpress'@'localhost' identified with mysql_native_password by 'wordpress';"
+#- name: Create wordpress account
+#  win_shell: mysql -u root -e "create user 'wordpress'@'localhost' identified with mysql_native_password by 'wordpress';"
 
-- name: Import wordpress.sql
-  win_shell: mysql -u root wordpress < C:\wordpress.sql
-  args:
-    executable: cmd
+#- name: Import wordpress.sql
+#  win_shell: mysql -u root wordpress < C:\wordpress.sql
+#  args:
+#    executable: cmd
   
 - name: Grant privs to wordpress account
   win_shell: mysql -u root -e "grant all on wordpress.* to 'wordpress'@'localhost';"
@@ -58,14 +67,65 @@
     src: ../files/wordpress.zip
     dest: C:\inetpub\wwwroot\wordpress.zip
 
-- name: Extract Wordpress from zip
-  win_unzip:
-    src: C:\inetpub\wwwroot\wordpress.zip
-    dest: C:\inetpub\wwwroot
+#- name: Extract Wordpress from zip
+#  win_unzip:
+#    src: C:\inetpub\wwwroot\wordpress.zip
+#    dest: C:\inetpub\wwwroot
 
-- name: Copy wp-config.php to server
-  win_copy:
-    src: ../files/wp-config.php
-    dest: C:\inetpub\wwwroot\wordpress\wp-config.php
+- name: Create share directory
+  win_file:
+    path: C:\Share
+    state: directory
 
-# remember to delete admin/install.php
+- name: Enable Guest user
+  win_user:
+    name: Guest
+    account_disabled: no
+
+- name: Create SMB share
+  win_share:
+    name: Share
+    path: C:\Share
+    list: yes
+    full: Administrators
+    read: Everyone
+
+- name: Add share to access anonymously LSP
+  win_security_policy:
+    section: Local Policies
+    key: "Network access: Shares that can be accessed anonymously"
+    value: "Share"
+
+- name: Allow anonymous access to named pipes and shares
+  win_security_policy:
+    section: Local Policies
+    key: "Network access: Restrict anonymous access to Named Pipes and Shares"
+    value: 0
+
+- name: Allow Everyone to apply to anonymous users
+  win_security_policy:
+    section: Local Policies
+    key: "Network access: Let Everyone permissions apply to anonymous users"
+    value: 1
+
+- name: Add ANONYMOUS LOGIN to network users LSP
+  win_security_policy:
+    section: Local Policies
+    key: "Access this computer from the network"
+    value: "Administrators, ANONYMOUS LOGON, Backup Operators, Guest, Everyone, Users"
+
+#- name: Add Guest to ACL for share folder
+#  win_acl:
+#    user: Guest
+#    path: C:\Share
+#    type: allow
+#    state: present
+#    rights: Read
+
+#- name: Add ANONYMOUS LOGON to ACL for share folder
+#  win_acl:
+#    user: ANONYMOUS LOGON
+#    path: C:\Share
+#    type: allow
+#    state: present
+#    rights: Read
