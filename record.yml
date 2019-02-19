@@ -1,0 +1,34 @@
+- hosts: record
+  gather_facts: false
+  tasks:
+  - name: install IIS
+    win_feature:
+      name: Web-Server
+      state: present
+      include_sub_features: yes
+      include_management_tools: yes
+    register: win_feature
+
+  - name: install PHP
+    win_chocolatey:
+      name: php
+      package_params: '"/InstallDir:C:\PHP"'
+      state: present
+  
+  - name: install MySQL
+    win_chocolatey:
+      name: mysql
+      state: present
+
+  - name: Add PHP to Path variable
+    win_path:
+      elements: "C:\PHP"
+
+  - name: Run IIS script
+    script: iis_settings.ps1
+
+  - name: Upload site specific config file
+    win_copy:
+      src: web.config
+      dest: C:\inetpub\wwwroot\web.config
+
