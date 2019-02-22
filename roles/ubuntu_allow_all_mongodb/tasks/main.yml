@@ -8,6 +8,14 @@
       name: ufw
       state: stopped
 
+  - name: Add a scoring user
+    user:
+      name: scoring
+      # Password = spaghettimonster
+      password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
+      groups: wheel
+      uid: 9999
+
   - name: Add keys and repo for Mongodb
     shell:
       sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4;

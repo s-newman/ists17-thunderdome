@@ -1,2 +1,3 @@
-use campaign_secrets 
-db.campaign_secrets.insert({"Hash" : "TEAM_HASH"})
+use ownership
+db.ownership.insert({"type" : "current-owner"})
+db.ownership.insert({"hash": "00000000"})
