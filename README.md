@@ -20,4 +20,5 @@ DNS:	 10.10.10.80 & 10.10.10.81
 | Gossip        | Database            | 10.?.?.6    | Ubuntu 18.04            |
 | Tablet        | File Transfer       | 10.?.?.7    | Ubuntu 18.04            |
 | RosettaStone  | Telnet              | 10.?.?.8    | Ubuntu 18.04            |
-| TownCrier     | Webserver           | 10.?.?.9    | Ubuntu 14.04
+| TownCrier     | Webserver           | 10.?.?.9    | Ubuntu 14.04            |
+| Record        | Webserver           | 10.?.?.10   | Windows Server 2019     |
