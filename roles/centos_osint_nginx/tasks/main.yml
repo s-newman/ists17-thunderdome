@@ -46,6 +46,13 @@
         owner: nginx
         group: nginx
 
+    - name: Copy flag.html page to /var/www/
+      copy:
+        src: flag.html
+        dest: /var/www/flag.html
+        owner: nginx
+        group: nginx
+
     - name: Copy harold.html page to /var/www
       copy:
         src: harold.html
