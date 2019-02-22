@@ -9,3 +9,17 @@
         password: $6$$4O6PDC7KXp5vPTmysA1tV/c/evfdMBhM3L5jejAK89vUPedDcHRcf/JD.0lC0VsjECI84/Gb4qmWDNuQKwkzI.
         group: wheel
 
+    - name: Add a scoring user
+      user:
+        name: scoring
+        # Password = spaghettimonster
+        password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
+        groups: wheel
+        uid: 9999
+
+    - name: Copy flag.txt to /home/hunter/flag.txt
+      copy:
+        src: flag.txt
+        dest: /home/hunter/flag.txt
+        owner: hunter
+        group: hunter
