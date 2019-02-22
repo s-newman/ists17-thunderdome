@@ -1,20 +1,35 @@
 ---
 
-      - name: Install vsftpd
-        package:
-          name: vsftpd
-          state: present
+    - name: Install vsftpd
+      package:
+        name: vsftpd
+        state: present
 
-      - name: Copy over the vsftp config 
-        copy:
-         src: vsftpd.conf
-         dest: /etc/vsftpd.conf
+    - name: Copy over the vsftp config 
+      copy:
+        src: vsftpd.conf
+        dest: /etc/vsftpd.conf
 
-      - name: Reload and enable vsftp
-        service:
-         name: vsftpd
-         state: started
-         enabled: yes
+    - name: Reload and enable vsftp
+      service:
+        name: vsftpd
+        state: started
+        enabled: yes
 
-      - name: Create ssh keys for root user
-        shell: ssh-keygen -t rsa -f /home/keys -N ""
+    - name: Create ssh keys for root user
+      shell: ssh-keygen -t rsa -f /home/keys -N ""
+
+    - name: Add a scoring user
+      user:
+        name: scoring
+        # Password = spaghettimonster
+        password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
+        groups: wheel
+        uid: 9999
+
+    - name: Copy flag.txt to /
+      copy:
+        src: flag.txt
+        dest: /flag.txt
+        owner: root
+        group: root
