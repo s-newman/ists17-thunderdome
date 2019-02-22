@@ -46,10 +46,10 @@
         owner: nginx
         group: nginx
 
-    - name: Copy flag.html page to /var/www/
+    - name: Copy ownership.txt page to /var/www/
       copy:
-        src: flag.html
-        dest: /var/www/flag.html
+        src: ownership.txt
+        dest: /var/www/ownership.txt
         owner: nginx
         group: nginx
 

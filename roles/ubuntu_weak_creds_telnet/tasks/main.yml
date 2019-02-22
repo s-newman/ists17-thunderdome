@@ -22,9 +22,15 @@
   #     groups: wheel
   #     uid: 9999
 
-  - name: Copy flag.txt to /home/josh/flag.txt
+  - name: Create scoring directory
+    file:
+      path: /home/ttesterson
+      state: directory
+      mode: 0744
+
+  - name: Copy flag.txt to /home/ttesterson/ownership.txt
     copy:
-      src: flag.txt
-      dest: /home/josh/flag.txt
+      src: ownership.txt
+      dest: /home/ttesterson/ownership.txt
       owner: josh
       group: wheel

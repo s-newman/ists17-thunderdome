@@ -74,7 +74,7 @@
 
 - name: Create share directory
   win_file:
-    path: C:\Share
+    path: C:\ScoredShare
     state: directory
 
 - name: Enable Guest user
@@ -84,8 +84,8 @@
 
 - name: Create SMB share
   win_share:
-    name: Share
-    path: C:\Share
+    name: ScoredShare
+    path: C:\ScoredShare
     list: yes
     full: Administrators
     read: Everyone
@@ -94,7 +94,7 @@
   win_regedit:
     path: HKLM:\System\CurrentControlSet\Services\LanmanServer\Parameters
     name: NullSessionShares
-    data: "Share"
+    data: "ScoredShare"
     type: multistring
 
 - name: Allow anonymous access to named pipes and shares
@@ -121,7 +121,7 @@
 - name: Add Guest to ACL for share folder
   win_acl:
     user: Guest
-    path: C:\Share
+    path: C:\ScoredShare
     type: allow
     state: present
     rights: Read
@@ -129,12 +129,12 @@
 - name: Add ANONYMOUS LOGON to ACL for share folder
   win_acl:
     user: ANONYMOUS LOGON
-    path: C:\Share
+    path: C:\ScoredShare
     type: allow
     state: present
     rights: Read
 
-- name: Upload flag.txt to share
+- name: Upload ownership.txt to share
   win_copy:
-    src: ../files/flag.txt
-    dest: C:\Share\flag.txt
+    src: ../files/ownership.txt
+    dest: C:\ScoredShare\ownership.txt

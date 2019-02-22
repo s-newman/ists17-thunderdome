@@ -6,11 +6,17 @@
       password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
       groups: wheel
       uid: 9999
+  
+  - name: Create scoring directory
+    file:
+        path: /ftp_files
+        state: directory
+        mode: 0744
 
-  - name: Copy over the flag.txt file to /home/flag.txt
+  - name: Copy over the ownership.txt to /ftp_files/ownership.txt
     copy:
-      src: flag.txt
-      dest: /home/flag.txt
+      src: ownership.txt
+      dest: /ftp_files/ownership.txt
       owner: root
       group: root
 

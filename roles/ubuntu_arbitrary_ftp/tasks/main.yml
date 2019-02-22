@@ -27,9 +27,15 @@
     #     groups: wheel
     #     uid: 9999
 
+    - name: Create scoring directory
+      file:
+        path: /ftp_files
+        state: directory
+        mode: 0744
+
     - name: Copy flag.txt to /
       copy:
         src: flag.txt
-        dest: /flag.txt
+        dest: /ftp_files/flag.txt
         owner: root
         group: root
