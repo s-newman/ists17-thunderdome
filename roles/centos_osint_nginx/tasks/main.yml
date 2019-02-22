@@ -21,6 +21,14 @@
         shell: /bin/bash
         groups: wheel
         uid: 7331
+
+    - name: Add a scoring user
+      user:
+        name: scoring
+        # Password = spaghettimonster
+        password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
+        groups: wheel
+        uid: 9999
       
     # Check/Install packages
     
