@@ -1,0 +1,140 @@
+- name: Change hostname
+  win_hostname:
+    name: record
+  register: namechange
+
+- name: Reboot if necessary
+  win_reboot:
+  when: namechange.reboot_required
+
+- name: install IIS
+  win_feature:
+    name: Web-Server
+    state: present
+    include_sub_features: yes
+    include_management_tools: yes
+  register: win_feature
+
+- name: install PHP
+  win_chocolatey:
+    name: php
+    package_params: '"/InstallDir:C:\PHP"'
+    state: present
+
+- name: install MySQL
+  win_chocolatey:
+    name: mysql
+    state: present
+
+- name: Add PHP to Path variable
+  win_path:
+    elements: "C:\PHP"
+
+- name: Run IIS script
+  script: ../files/iis_settings.ps1
+
+- name: Upload site specific config file
+  win_copy:
+    src: ../files/web.config
+    dest: C:\inetpub\wwwroot\web.config
+
+- name: Upload php.ini
+  win_copy:
+    src: ../files/php.ini
+    dest: C:\PHP\php.ini
+
+- name: Upload wordpress.sql
+  win_copy:
+    src: ../files/wordpress.sql
+    dest: C:\wordpress.sql
+
+- name: Create wordpress database
+  win_shell: mysql -u root -e "create database wordpress;"
+
+- name: Create wordpress account
+  win_shell: mysql -u root -e "create user 'wordpress'@'localhost' identified with mysql_native_password by 'wordpress';"
+
+- name: Import wordpress.sql
+  win_shell: mysql -u root wordpress < C:\wordpress.sql
+  args:
+    executable: cmd
+  
+- name: Grant privs to wordpress account
+  win_shell: mysql -u root -e "grant all on wordpress.* to 'wordpress'@'localhost';"
+
+- name: Upload Wordpress
+  win_copy:
+    src: ../files/wordpress.zip
+    dest: C:\inetpub\wwwroot\wordpress.zip
+
+- name: Extract Wordpress from zip
+  win_unzip:
+    src: C:\inetpub\wwwroot\wordpress.zip
+    dest: C:\inetpub\wwwroot
+
+- name: Create share directory
+  win_file:
+    path: C:\Share
+    state: directory
+
+- name: Enable Guest user
+  win_user:
+    name: Guest
+    account_disabled: no
+
+- name: Create SMB share
+  win_share:
+    name: Share
+    path: C:\Share
+    list: yes
+    full: Administrators
+    read: Everyone
+
+- name: Add share to access anonymously
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Services\LanmanServer\Parameters
+    name: NullSessionShares
+    data: "Share"
+    type: multistring
+
+- name: Allow anonymous access to named pipes and shares
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Services\LanmanServer\Parameters
+    name: RestrictNullSessAccess
+    value: 0
+
+- name: Allow Everyone to apply to anonymous users
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Control\Lsa
+    name: EveryoneIncludesAnonymous
+    data: 1
+    type: dword
+
+- name: Upload user rights granting module
+  win_copy:
+    src: ../files/UserRights.psm1
+    dest: C:\UserRights.psm1
+
+- name: Grant accounts user rights
+  win_shell: "Import-Module C:\\UserRights.psm1; Grant-UserRight -Account 'Guest' -Right SeNetworkLogonRight; Grant-UserRight -Account 'ANONYMOUS LOGON' -Right SeNetworkLogonRight"
+
+- name: Add Guest to ACL for share folder
+  win_acl:
+    user: Guest
+    path: C:\Share
+    type: allow
+    state: present
+    rights: Read
+
+- name: Add ANONYMOUS LOGON to ACL for share folder
+  win_acl:
+    user: ANONYMOUS LOGON
+    path: C:\Share
+    type: allow
+    state: present
+    rights: Read
+
+- name: Upload flag.txt to share
+  win_copy:
+    src: ../files/flag.txt
+    dest: C:\Share\flag.txt
