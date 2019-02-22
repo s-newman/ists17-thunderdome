@@ -22,11 +22,11 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Setup vulnerable web content
 ADD index.html /var/www/
+ADD flag.html /var/www
 ADD stats /usr/lib/cgi-bin/
-ADD flag.txt /opt/
 RUN chown www-data:www-data /opt/hash.txt
 RUN chown www-data:www-data /usr/lib/cgi-bin/stats
-RUN chmod 777 /opt/hash.txt
+RUN chmod 777 /var/www/flag.html
 RUN chmod u+x /usr/lib/cgi-bin/stats
 
 # Clean up
