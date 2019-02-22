@@ -5,12 +5,14 @@ boxes!  Also, the more we document here now, the less time we'll need to spend
 answering questions later._
 
 ## Host Details
-**Type** - Pubicly-facing  
-**OS** - Windows Server 2003  
+**Type** - Cloud
+**OS** - OpenBSD 6.4
 **Services**
-- A
-- B
-- C
+- OpenSMTPD
+- Dovecot
+- SSH
+
+**Everything Else is TBD**
 
 ## Vulnerabilities
 _Feel free to add/remove entries as needed._

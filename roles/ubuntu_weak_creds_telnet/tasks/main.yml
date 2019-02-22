@@ -1,0 +1,15 @@
+---
+
+  - name: Install Telnet
+    package:
+      name: telnetd
+      state: present
+
+  - name: Add user for weak telnet creds
+    user:
+      # password icantspell
+      name: admin
+      password: $6$$jBryOaby1Ggetmxh9qy9JxwL8FgQmkvt6aFSLhWXt0NRBDYrokOL.zBgVQfw04pqbS1Pb8JDT12R8i0vrDcnv0
+      shell: /bin/bash
+      groups: admin
+      uid: 1337

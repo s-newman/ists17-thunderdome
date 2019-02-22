@@ -1,0 +1,11 @@
+---
+
+    - name: Adding hunter user for ssh brute force
+      user:
+        name: hunter
+        shell: /bin/bash
+        uid: 1024
+        # Password = hunter2
+        password: $6$$4O6PDC7KXp5vPTmysA1tV/c/evfdMBhM3L5jejAK89vUPedDcHRcf/JD.0lC0VsjECI84/Gb4qmWDNuQKwkzI.
+        group: wheel
+

@@ -1,0 +1,44 @@
+---
+
+  - name: Install Apache2
+    package:
+      name: httpd
+      state: present
+
+  - name: Copy Apache2 Conf to /etc/httpd/conf/httpd.conf
+    copy:
+      src: httpd.conf
+      dest: /etc/httpd/conf/httpd.conf
+      owner: root
+      group: root
+
+  - name: Start Apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
+  - name: Copy index.html to /var/www/html
+    copy:
+      src: index.html
+      dest: /var/www/html/index.html
+      owner: apache
+      group: apache
+
+  - name: Copy stats script to /var/www/cgi-bin/
+    copy:
+      src: stats
+      dest: /var/www/cgi-bin/stats
+      owner: apache
+      group: apache
+
+  - name: Chmod 777 /var/www/cgi-bin/stats
+    file:
+      dest: /var/www/cgi-bin/stats
+      mode: "777"
+
+  - name: Start Apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
