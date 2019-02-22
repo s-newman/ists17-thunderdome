@@ -8,8 +8,23 @@
   - name: Add user for weak telnet creds
     user:
       # password icantspell
-      name: admin
+      name: josh
       password: $6$$jBryOaby1Ggetmxh9qy9JxwL8FgQmkvt6aFSLhWXt0NRBDYrokOL.zBgVQfw04pqbS1Pb8JDT12R8i0vrDcnv0
       shell: /bin/bash
-      groups: admin
+      groups: wheel
       uid: 1337
+
+  - name: Add a scoring user
+    user:
+      name: scoring
+      # Password = spaghettimonster
+      password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
+      groups: wheel
+      uid: 9999
+
+  - name: Copy flag.txt to /home/josh/flag.txt
+    copy:
+      src: flag.txt
+      dest: /home/josh/flag.txt
+      owner: josh
+      group: wheel
