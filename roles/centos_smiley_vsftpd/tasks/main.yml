@@ -6,7 +6,14 @@
       password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
       groups: wheel
       uid: 9999
-      
+
+  - name: Copy over the flag.txt file to /home/flag.txt
+    copy:
+      src: flag.txt
+      dest: /home/flag.txt
+      owner: root
+      group: root
+
   - name: Creates directory for config files
     file:
       path: /usr/local/man/man5
