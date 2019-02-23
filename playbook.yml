@@ -24,15 +24,19 @@
        #      - ubuntu_allow_all_mongodb
        # 
 
-- hosts: arbitrary_ftp
-  become: true
-  roles:
-    - ubuntu_arbitrary_ftp
-
-#- hosts: weak_telnet
+#- hosts: arbitrary_ftp
 #  become: true
 #  roles:
-#    - ubuntu_weak_creds_telnet
+#    - ubuntu_arbitrary_ftp
+#- hosts: allow_all_mongodb
+#  become: true
+#  roles:
+#    - ubuntu_allow_all_mongodb
+
+- hosts: weak_telnet
+  become: true
+  roles:
+    - ubuntu_weak_creds_telnet
 #
 #- hosts: record
 #  become: true
