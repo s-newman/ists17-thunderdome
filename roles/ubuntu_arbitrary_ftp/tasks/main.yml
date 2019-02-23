@@ -1,38 +1,45 @@
 ---
 
-    - name: Install vsftpd
-      package:
-        name: vsftpd
-        state: present
+- name: Install vsftpd
+  package:
+    name: vsftpd
+    state: present
 
-    - name: Copy over the vsftp config 
-      copy:
-        src: vsftpd.conf
-        dest: /etc/vsftpd.conf
+- name: Copy over the vsftp config 
+  copy:
+    src: vsftpd.conf
+    dest: /etc/vsftpd.conf
 
-    - name: Reload and enable vsftp
-      service:
-        name: vsftpd
-        state: started
-        enabled: yes
+- name: Add a secret admin user
+  user:
+    name: charles
+    # Password = spaghettimonster
+    password: $6$$j5cCkWjrxlQiod6JL2/wGeZqoOql2HFtCGtIao4.u.tlR9kSr512yFv467tr9zYWn9q3ijxYGB/X4nb.c1HFL1
+    groups: adm
+    uid: 1337
 
-    # - name: Add a scoring user
-    #   user:
-    #     name: scoring
-    #     # Password = spaghettimonster
-    #     password: $6$$rON4PwhoGsuYamMKJP7g8UOMaWExHuhZtSbAmb3XNnkSdLoRe0gBC/7Wodj6LnRb/ctYNXAMAGVddqjwTsOuz/
-    #     groups: wheel
-    #     uid: 9999
+- name: Create scoring directory
+  file:
+    path: /ftp_files
+    state: directory
+    mode: 0777
 
-    - name: Create scoring directory
-      file:
-        path: /ftp_files
-        state: directory
-        mode: 0744
+- name: Copy ownership.txt to /ftp_files
+  copy:
+    src: ownership.txt
+    dest: /ftp_files/ownership.txt
+    owner: root
+    group: root
 
-    - name: Copy ownership.txt to /
-      copy:
-        src: ownership.txt
-        dest: /ftp_files/ownership.txt
-        owner: root
-        group: root
+- name: Copy creds file to /home/charles
+  copy:
+    src: creds
+    dest: /home/charles
+    owner: charles
+    group: sudo
+
+- name: Reload and enable vsftp
+  service:
+    name: vsftpd
+    state: reloaded
+    enabled: yes
