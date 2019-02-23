@@ -11,7 +11,7 @@
       name: josh
       password: $6$$jBryOaby1Ggetmxh9qy9JxwL8FgQmkvt6aFSLhWXt0NRBDYrokOL.zBgVQfw04pqbS1Pb8JDT12R8i0vrDcnv0
       shell: /bin/bash
-      groups: wheel
+      groups: sudo
       uid: 1337
 
   # - name: Add a scoring user
@@ -22,15 +22,21 @@
   #     groups: wheel
   #     uid: 9999
 
-  - name: Create scoring directory
-    file:
-      path: /home/ttesterson
-      state: directory
-      mode: 0744
+  # - name: Create scoring directory
+  #   file:
+  #     path: /home/josh
+  #     state: directory
+  #     mode: 0744
 
-  - name: Copy ownership.txt to /home/ttesterson/ownership.txt
+  - name: Copy ownership.txt to /home/josh/ownership.txt
     copy:
       src: ownership.txt
-      dest: /home/ttesterson/ownership.txt
+      dest: /home/josh/ownership.txt
       owner: josh
-      group: wheel
+      group: josh
+
+  - name: Start/reload the telnet service
+    service:
+      name: telnetd
+      state: started
+      enable: yes
