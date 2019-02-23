@@ -33,12 +33,16 @@
 #  roles:
 #    - ubuntu_allow_all_mongodb
 
-- hosts: weak_telnet
-  become: true
-  roles:
-    - ubuntu_weak_creds_telnet
+#- hosts: weak_telnet
+#  become: true
+#  roles:
+#    - ubuntu_weak_creds_telnet
 #
 #- hosts: record
 #  become: true
 #  roles:
 #    - record
+- hosts: ubuntu14_scott_CVE
+  become: true
+  roles:
+    
