@@ -17,9 +17,9 @@
         groups: wheel
         uid: 9999
 
-    - name: Copy flag.txt to /home/hunter/ownership.txt
+    - name: Copy ownership.txt to /home/hunter/ownership.txt
       copy:
-        src: flag.txt
+        src: ownership.txt
         dest: /home/hunter/ownership.txt
         owner: hunter
         group: hunter

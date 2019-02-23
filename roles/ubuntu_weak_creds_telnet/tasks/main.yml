@@ -28,7 +28,7 @@
       state: directory
       mode: 0744
 
-  - name: Copy flag.txt to /home/ttesterson/ownership.txt
+  - name: Copy ownership.txt to /home/ttesterson/ownership.txt
     copy:
       src: ownership.txt
       dest: /home/ttesterson/ownership.txt
