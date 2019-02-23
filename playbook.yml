@@ -1,41 +1,40 @@
 ---
+#- hosts: osint
+#  become: true
+#  roles: 
+#    - centos_osint_nginx
+#
+#- hosts: brute_ssh
+#  become: true
+#  roles:
+#    - centos_weak_creds_ssh
+#       
+#- hosts: smiley
+#  become: true
+#  roles:
+#    - centos_smiley_vsftpd
 
- - hosts: osint
-   become: true
-   roles: 
-     - centos_osint_nginx
+       # - hosts: shellshock
+       # become: true
+       #roles:
+       #- centos_shellshock_apache
+       #  - hosts: mongo
+       #    become: true
+       #    roles: 
+       #      - ubuntu_allow_all_mongodb
+       # 
 
- - hosts: brute_ssh
-   become: true
-   roles:
-     - centos_weak_creds_ssh
+- hosts: arbitrary_ftp
+  become: true
+  roles:
+    - ubuntu_arbitrary_ftp
 
- - hosts: shellshock
-   become: true
-   roles:
-     - centos_shellshock_apache
-
- - hosts: smiley
-   become: true
-   roles:
-     - centos_smiley_vsftpd
-
- - hosts: mongo
-   become: true
-   roles: 
-     - ubuntu_allow_all_mongodb
-
- - hosts: arbitrary_ftp
-   become: true
-   roles:
-     - ubuntu_arbitrary_ftp
-
- - hosts: weak_telnet
-   become: true
-   roles:
-     - ubuntu_weak_creds_telnet
-
- - hosts: record
-   become: true
-   roles:
-     - record
+#- hosts: weak_telnet
+#  become: true
+#  roles:
+#    - ubuntu_weak_creds_telnet
+#
+#- hosts: record
+#  become: true
+#  roles:
+#    - record
